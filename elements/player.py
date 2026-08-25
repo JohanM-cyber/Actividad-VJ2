@@ -25,6 +25,7 @@ class Player(pygame.sprite.Sprite):
         self.screen_height = screen.get_height()
 
         # TODO (2.4): Crear grupo de balas
+        self.bullets = pygame.sprite.Group()
 
     def update(self, pressed_keys):
         # ? Mover a Jorge
@@ -44,9 +45,18 @@ class Player(pygame.sprite.Sprite):
         self.rect.bottom = min(self.rect.bottom, self.screen_height)
 
         # TODO (2.4): Actualizar las balas
+        self.bullets.update()
 
     def shoot(self, mouse_pos):
         # TODO (2.4): Calcular direccion de la bala
+        distance = Vector2(mouse_pos) - Vector2(self.rect.center)
+        direction = distance.normalize()
 
         # TODO (2.4): Crear bala y agregarla al grupo de balas
-        pass
+        bullet = Bullet(
+            self.rect.center,
+            direction,
+            self.screen_width,
+            self.screen_height,
+        )
+        self.bullets.add(bullet)

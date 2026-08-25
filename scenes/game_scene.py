@@ -51,6 +51,9 @@ def gameloop(screen):
                 all_sprites.add(new_enemy)
 
             # TODO (2.5): Disparar balas al hacer click con el mouse
+            elif event.type == MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                player.shoot(mouse_pos)
 
         # ? Actualizar el estado interno de los sprites (posiciones, etc)
         pressed_keys = pygame.key.get_pressed()
@@ -62,6 +65,8 @@ def gameloop(screen):
             screen.blit(entity.image, entity.rect)
 
         # TODO (2.5): Dibujar las balas en la ventana
+        for bullet in player.bullets:
+            screen.blit(bullet.image, bullet.rect)
 
         # ? Calcular colisiones entre jugador y enemigos
         if pygame.sprite.spritecollideany(player, enemies):
@@ -69,6 +74,12 @@ def gameloop(screen):
             running = False
 
         # TODO (2.6): Calcular colisiones entre balas y enemigos
+        pygame.sprite.groupcollide(
+            player.bullets,
+            enemies,
+            True,
+            True,
+        )
 
         # ? Actualizar la ventana para reflejar todos los cambios
         pygame.display.flip()
