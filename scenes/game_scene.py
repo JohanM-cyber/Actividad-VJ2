@@ -30,6 +30,11 @@ def gameloop(screen):
 
     running = True  # variable booleana para manejar el loop
 
+    # eliminar la mirilla y cargar la imagen
+    pygame.mouse.set_visible(False)
+    mirilla = pygame.image.load("assets/mirilla.png").convert_alpha()
+    mirilla_scaled =  pygame.transform.scale(mirilla, (64, 64))
+
     # * Loop principal del juego, todo lo que ocurre en el juego se hace dentro de este loop
     while running:
         # ? Dibujar la imagen de fondo en la ventana
@@ -59,6 +64,10 @@ def gameloop(screen):
         pressed_keys = pygame.key.get_pressed()
         player.update(pressed_keys)
         enemies.update()
+
+        # Poner la mirilla
+        mouse_pos = pygame.mouse.get_pos()
+        screen.blit(mirilla_scaled, mouse_pos)
 
         # ? Dibujar los sprites actualizados en la ventana
         for entity in all_sprites:

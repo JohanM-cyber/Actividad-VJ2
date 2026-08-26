@@ -2,7 +2,7 @@ if __name__ == "__main__":
     raise RuntimeError("\033c❌ ESTE ARCHIVO NO DEBE EJECUTARSE. EJECUTA main.py")
 
 import pygame
-from pygame.locals import K_ESCAPE, KEYDOWN, QUIT
+from pygame.locals import K_RETURN, KEYDOWN, QUIT
 
 
 def gameloop(screen):
@@ -14,8 +14,8 @@ def gameloop(screen):
 
     # Definimos la fuente y texto a usar
     font = pygame.font.Font(None, 48)
-    line1 = font.render("Estamos en basic_scene", True, (255, 255, 255))
-    line2 = font.render("Aprieta ESC para salir de esta escena", True, (255, 255, 255))
+    line1 = font.render("EXPERIENCIA VJ-2", True, (255, 255, 255), (0, 0, 0))
+    line2 = font.render("Aprieta ENTER para iniciar el juego", True, (255, 255, 255), (0, 0, 0))
 
     # Definimos las posiciones de los textos
     line1_rect = line1.get_rect(
@@ -30,13 +30,15 @@ def gameloop(screen):
     while running:
         for event in pygame.event.get():
             if event.type == KEYDOWN:
-                if event.key == K_ESCAPE:
+                if event.key == K_RETURN:
                     running = False
             elif event.type == QUIT:
                 running = False
 
-        # Limpiar pantalla (fondo negro)
-        screen.fill((0, 0, 0))
+        # Fondo de pantalla
+        fondo = pygame.image.load("assets/carga.png")
+        fondo_scaled = pygame.transform.scale(fondo, (screen.get_width(), screen.get_height()))
+        screen.blit(fondo_scaled, (0, 0))
 
         # Dibujar textos
         screen.blit(line1, line1_rect)
