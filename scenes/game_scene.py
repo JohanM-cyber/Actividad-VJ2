@@ -35,6 +35,8 @@ def gameloop(screen):
     mirilla = pygame.image.load("assets/mirilla.png").convert_alpha()
     mirilla_scaled =  pygame.transform.scale(mirilla, (64, 64))
 
+    ultimo_disparo = 0
+
     # * Loop principal del juego, todo lo que ocurre en el juego se hace dentro de este loop
     while running:
         # ? Dibujar la imagen de fondo en la ventana
@@ -57,8 +59,11 @@ def gameloop(screen):
 
             # TODO (2.5): Disparar balas al hacer click con el mouse
             elif event.type == MOUSEBUTTONDOWN:
-                mouse_pos = pygame.mouse.get_pos()
-                player.shoot(mouse_pos)
+                tiempo_actual = pygame.time.get_ticks()
+                if tiempo_actual - ultimo_disparo >= 5000:
+                    ultimo_disparo = pygame.time.get_ticks()
+                    mouse_pos = pygame.mouse.get_pos()
+                    player.shoot(mouse_pos)
 
         # ? Actualizar el estado interno de los sprites (posiciones, etc)
         pressed_keys = pygame.key.get_pressed()

@@ -16,6 +16,7 @@ def gameloop(screen):
     font = pygame.font.Font(None, 48)
     line1 = font.render("EXPERIENCIA VJ-2", True, (255, 255, 255), (0, 0, 0))
     line2 = font.render("Aprieta ENTER para iniciar el juego", True, (255, 255, 255), (0, 0, 0))
+    line3 = font.render("¡COOLDOWN DE 5 SEGUNDOS!", True, (255, 255, 255), (0, 0, 0))
 
     # Definimos las posiciones de los textos
     line1_rect = line1.get_rect(
@@ -24,6 +25,10 @@ def gameloop(screen):
 
     line2_rect = line2.get_rect(
         center=(screen.get_width() // 2, screen.get_height() // 2 + 25)
+    )
+
+    line3_rect = line3.get_rect(
+        center=(screen.get_width() // 2, screen.get_height() // 2 + 75)
     )
 
     # Iniciamos el loop principal de la escena inicial
@@ -43,6 +48,7 @@ def gameloop(screen):
         # Dibujar textos
         screen.blit(line1, line1_rect)
         screen.blit(line2, line2_rect)
+        screen.blit(line3, line3_rect)
 
         # Actualizar pantalla
         pygame.display.flip()
